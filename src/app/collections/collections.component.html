@@ -1,0 +1,184 @@
+<main class="profile-page">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <section class="section-shaped my-0" style="height: 350px; background-size: cover; background-position: center center;">
+      <p style="color: rgb(232,71,45); position: relative; text-align: center; font-size: 25px; font-weight: bold; top: 100px;">Collections Engine</p>
+
+      <div class="shape shape-style-1 shape-dark alpha-4">
+      </div>
+    </section>
+    
+    <div class="position-relative">
+      <section class="section section-sm section-shaped pb-250">
+        <div class="shape shape-style-1 shape-dark">
+        </div>
+        <div class="container py-lg-md">
+          <div class="card card-profile shadow mt--300 card2">
+            <div class="col-lg-12 profile-label-2" style="min-height: 100px; justify-content: left; display:flex; margin-bottom: 50px; text-align: left; padding: 10px; background-color: rgba(232,71,45,0.4);">
+                <i class="fa fa-exclamation-circle fa-3x" style="color: rgb(232,71,45); display: inline-block; left: 10px; margin-right: 20px;"></i>
+                <p style="color: rgb(232,71,45); text-align: left; font-size: 20px; font-weight: bold;">The floor price, listing and active sales data may show wrong results because they use an alpha endpoint (NFT Active Listings).</p>
+            </div>
+
+            <div class="col-lg-12 profile-label-2" style="padding-bottom: 10px;">
+                <div class="form__group field" style="width: 100%;">
+                    <input type="input" class="form__field" placeholder="Mint address" required 
+                    (keyup.enter)="search()" [(ngModel)]="fvc" />
+                    <label for="name" class="form__label">First Verified Creators</label>
+                </div>
+                <div *ngIf="loading" class="loader" style="right: 5px;">
+                    <div class="inner one"></div>
+                    <div class="inner two"></div>
+                    <div class="inner three"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-12" style="display: flex; justify-content: center;">
+                <div *ngIf="mints.length != 0" class="col-lg-3 collection-label" style="min-height: 100px; justify-content: left; display:inline-block; margin-bottom: 50px; text-align: center; padding: 10px; 
+                            margin-top: 20px;margin-right: 20px;">
+                    <p style="color: white; text-align: left; font-size: 18px; top: 5px; left: 5px;">Collection</p>
+                    <p style="color: white; text-align: center; font-size: 24px; font-weight: bold;">{{collectionName}}</p>
+                </div>
+                <div *ngIf="listing.length != 0" class="col-lg-3 fp-label" style="min-height: 100px; justify-content: left; display:inline-block; margin-bottom: 50px; text-align: center; padding: 10px; 
+                            margin-top: 20px;margin-right: 20px;">
+                    <p style="color: white; text-align: left; font-size: 18px; top: 5px; left: 5px;">Floor Price</p>
+                    <p style="color: white; text-align: center; font-size: 24px; font-weight: bold;">{{fp}} ◎</p>
+                </div>
+                <div *ngIf="listingCount != null" class="col-lg-3 ls-label" style="min-height: 100px; justify-content: left; display:inline-block; margin-bottom: 50px; text-align: center; padding: 10px; 
+                            margin-top: 20px;margin-right: 20px;">
+                    <p style="color: white; text-align: left; font-size: 18px; top: 5px; left: 5px;">Listing</p>
+                    <p style="color: white; text-align: center; font-size: 24px; font-weight: bold;">{{listingCount}}</p>
+                </div>
+            </div>
+            
+
+            <div *ngIf="mints.length != 0" class="card-body col-lg-12 profile-label-2" style="height: 100%; display: inline-block; height: 100%; text-align: center; margin-top: 20px;">
+                <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 12px; color: rgb(232,71,45); position: absolute; right: 5px; top: 5px; padding: 0px; display: block;">{{mints.length}} mints</h6>
+                <a style="color: white; position: absolute; left: 5px; top: 5px;" title="Download JSON" [href]="downloadJsonMintsHref" download="download.json">
+                    <i class="fa fa-download fa-2x" style="color: rgb(232,71,45); display: inline-block; left: 10px; margin-right: 20px;"></i>
+                </a>
+                <div class="col-lg-12" style="text-align: left;">
+                  <a class="nav-link no-caret" style="display: block;" (click)="mintClicked()">
+                      <i *ngIf="expandMints" class="fa fa-caret-down" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                      <i *ngIf="!expandMints" class="fa fa-caret-right" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                      <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 16px; color: rgb(232,71,45); position: relative; padding: 0px; display: inline-block;">Mint list</h6> 
+                  </a>
+                </div>
+
+                <div *ngIf="expandMints">
+                  <div class="col-lg-12">
+                    <table>
+                      <tr>
+                        <th>Name</th>
+                        <th>Mint</th>
+                      </tr>
+                      <tr *ngFor="let x of mints">
+                        <td style="width: 25%;">{{x.name}}</td>
+                        <td style="width: 75%;"><a [routerLink]="['/nfts', x.mint]" target="_blank">{{x.mint}}</a> </td>
+                      </tr>
+                    </table> 
+                  </div>
+                  
+                </div>
+    
+                <div *ngIf="mintContinuation!= null && mints.length && expandMints" class="col-lg-12" style="height: auto;
+                    margin: 0 auto;
+                    padding: 10px;">
+                  <button *ngIf="!moreMintsLoading" class="btn hnwbtn" (click)="moreMintsClicked()">More</button>
+                  <div *ngIf="moreMintsLoading" class="loader" style="margin-left: 50%; margin-right: 50%; width: 50px; margin-top: 10px;">
+                    <div class="inner one"></div>
+                    <div class="inner two"></div>
+                    <div class="inner three"></div>
+                  </div>
+                </div>
+            </div>
+
+            <div *ngIf="events.length" class="card-body col-lg-12 profile-label-2" style="height: 100%; display: inline-block; height: 100%; text-align: center; margin-top: 20px;">
+                <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 12px; color: rgb(232,71,45); position: absolute; right: 5px; top: 5px; padding: 0px; display: block;">{{events.length}} tansactions</h6>
+                <div class="col-lg-12" style="text-align: left;">
+                  <a class="nav-link no-caret" style="display: block;" (click)="evClicked()">
+                      <i *ngIf="expandEv" class="fa fa-caret-down" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                      <i *ngIf="!expandEv" class="fa fa-caret-right" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                      <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 16px; color: rgb(232,71,45); position: relative; padding: 0px; display: inline-block;">Sales</h6> 
+                  </a>
+                </div>
+
+                <div *ngIf="expandEv">
+                  <div class="col-lg-12">
+                    <table>
+                      <tr>
+                        <th>Signature</th>
+                        <th>Mint</th>
+                        <th>Source</th>
+                        <th>Amount <img src="https://cdn-icons-png.flaticon.com/512/7016/7016539.png" style="height: 32px;"></th>
+                      </tr>
+                      <tr *ngFor="let x of events">
+                        <td><a href="https://solscan.io/tx/{{x.signature}}" target="_blank">{{x.signature}}</a></td>
+                        <td><a [routerLink]="['/nfts', x.nfts[0].mint]" target="_blank">{{x.nfts[0].mint}}</a></td>
+                        <td>{{x.source}}</td>
+                        <td>{{x.amount}} ◎ </td>
+                      </tr>
+                    </table> 
+                  </div>
+                  
+                </div>
+    
+                <div *ngIf="salesContinuation != null && events.length && expandEv" class="col-lg-12" style="height: auto;
+                margin: 0 auto;
+                padding: 10px;">
+                  <button *ngIf="!moreSalesLoading" class="btn hnwbtn" (click)="moreSalesClicked()">More</button>
+                  <div *ngIf="moreSalesLoading" class="loader" style="margin-left: 50%; margin-right: 50%; width: 50px; margin-top: 10px;">
+                    <div class="inner one"></div>
+                    <div class="inner two"></div>
+                    <div class="inner three"></div>
+                  </div>
+                </div> 
+              
+            </div>
+
+            <div *ngIf="listing.length" class="card-body col-lg-12 profile-label-2" style="height: 100%; display: inline-block; height: 100%; text-align: center; margin-top: 20px;">
+                <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 12px; color: rgb(232,71,45); position: absolute; right: 5px; top: 5px; padding: 0px; display: block;">{{listing.length}} items</h6>
+                <div class="col-lg-12" style="text-align: left;">
+                  <a class="nav-link no-caret" style="display: block;" (click)="listingClicked()">
+                      <i *ngIf="expandListing" class="fa fa-caret-down" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                      <i *ngIf="!expandListing" class="fa fa-caret-right" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                      <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 16px; color: rgb(232,71,45); position: relative; padding: 0px; display: inline-block;">Active Listing</h6> 
+                  </a>
+                </div>
+
+                <div *ngIf="expandListing">
+                  <div class="col-lg-12">
+                    <table>
+                      <tr>
+                        <th>Mint</th>
+                        <th>name</th>
+                        <th>Marketplace</th>
+                        <th>Amount <img src="https://cdn-icons-png.flaticon.com/512/7016/7016539.png" style="height: 32px;"></th>
+                      </tr>
+                      <tr *ngFor="let x of listing">
+                        <td><a [routerLink]="['/nfts', x.mint]" target="_blank">{{x.mint}}</a></td>
+                        <td>{{x.name}}</td>
+                        <td>{{x.activeListings[0].marketplace}}</td>
+                        <td>{{x.activeListings[0].amount}} ◎ </td>
+                      </tr>
+                    </table> 
+                  </div>
+                  
+                </div>
+    
+                <div *ngIf="listingContinuation != null && listing.length && expandListing" class="col-lg-12" style="height: auto;
+                margin: 0 auto;
+                padding: 10px;">
+                  <button *ngIf="!moreListingLoading" class="btn hnwbtn" (click)="moreListingClicked()">More</button>
+                  <div *ngIf="moreListingLoading" class="loader" style="margin-left: 50%; margin-right: 50%; width: 50px; margin-top: 10px;">
+                    <div class="inner one"></div>
+                    <div class="inner two"></div>
+                    <div class="inner three"></div>
+                  </div>
+                </div>
+              
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+</main>

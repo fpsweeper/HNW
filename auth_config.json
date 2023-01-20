@@ -1,0 +1,8 @@
+{
+  "domain": "dev-ld3di4i6ckz7sx06.us.auth0.com",
+  "clientId": "IvjNe5eh2sRMxnRUnel9ZzQlSrWycglI",
+  "audience": "YOUR_API_IDENTIFIER",
+  "apiUri": "http://localhost:3001",
+  "appUri": "https://localhost:4200/market8profile",
+  "errorPath": "/error"
+}

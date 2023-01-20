@@ -1,0 +1,91 @@
+<main class="profile-page">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <section class="section-shaped my-0" style="height: 350px; background-size: cover; background-position: center center;">
+      <div class="shape shape-style-1 shape-dark alpha-4">
+      </div>
+    </section>
+
+    <div class="position-relative">
+      <section class="section section-sm section-shaped pb-250">
+        <div class="shape shape-style-1 shape-dark">
+        </div>
+        <div style="margin-left: 10%; margin-right:10%; justify-content: center; display:flex;">
+          <div class="card card-profile shadow mt--300 card2" style="min-height: 100px; text-align: center; width: 100%; ">
+            <div class="col-lg-12 profile-label-2" style="min-height: 100px; justify-content: left; display:flex; margin-bottom: 50px; text-align: left; padding: 10px; background-color: rgba(232,71,45,0.4);">
+              <i class="fa fa-exclamation-circle fa-3x" style="color: rgb(232,71,45); display: inline-block; left: 10px; margin-right: 20px;"></i>
+              <p style="color: rgb(232,71,45); text-align: left; font-size: 20px; font-weight: bold;">The data shown in the page is automatically refreshed every 30 seconds.</p>
+            </div>
+
+            <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 25px; color: rgb(232,71,45);">{{marketplaceTitle}} Sales</h6>
+            <div class="col-lg-12 profile-label-2" style="padding-bottom: 10px; min-height: 100px; justify-content: center; display:flex; margin-bottom: 50px;">
+                <div *ngIf="salesLoading" class="loader">
+                  <div class="inner one"></div>
+                  <div class="inner two"></div>
+                  <div class="inner three"></div>
+                </div>
+
+                <div *ngIf="!salesLoading" class="col-lg-6">
+                    <table style="width: 100%;">
+                      <tr>
+                        <th>Mint</th>
+                        <th>Name</th>
+                        <th>Price <img src="https://cdn-icons-png.flaticon.com/512/7016/7016539.png" style="height: 32px;"></th>
+                        <th>Time</th>
+                      </tr>
+                      <tr *ngFor="let x of sales">
+                        <td><a [routerLink]="['/nfts', x.nfts[0].mint]" target="_blank">{{x.nfts[0].mint}}</a> </td>
+                        <td>{{x.nfts[0].name}}</td>
+                        <td>{{x.amount}} ◎ </td>
+                        <td>{{x.timestamp}}</td>
+                      </tr>
+                    </table>
+                </div>
+
+                <div *ngIf="!salesLoading" class="col-lg-6">
+                  <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [type]="'bar'">
+                  </canvas>
+                </div>
+            </div> 
+
+            <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 25px; color: rgb(232,71,45);">{{marketplaceTitle}} Listing</h6>
+            <div class="col-lg-12 profile-label-2" style="padding-bottom: 10px; min-height: 100px; justify-content: center; display:flex;">
+                <div *ngIf="salesLoading" class="loader">
+                  <div class="inner one"></div>
+                  <div class="inner two"></div>
+                  <div class="inner three"></div>
+                </div>
+
+                <div *ngIf="!salesLoading" class="col-lg-6">
+                    <table style="width: 100%;">
+                      <tr>
+                        <th>Mint</th>
+                        <th>Name</th>
+                        <th>Price <img src="https://cdn-icons-png.flaticon.com/512/7016/7016539.png" style="height: 32px;"></th>
+                        <th>Time</th>
+                      </tr>
+                      <tr *ngFor="let x of listing">
+                        <td><a [routerLink]="['/nfts', x.nfts[0].mint]" target="_blank">{{x.nfts[0].mint}}</a> </td>
+                        <td>{{x.nfts[0].name}}</td>
+                        <td>{{x.amount}} ◎ </td>
+                        <td>{{x.timestamp}}</td>
+                      </tr>
+                    </table>
+                </div>
+
+                <div *ngIf="!salesLoading" class="col-lg-6">
+                  <canvas baseChart
+                    [data]="barChartDataListing"
+                    [options]="barChartOptions1"
+                    [type]="'bar'">
+                  </canvas>
+                </div>
+            </div> 
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  

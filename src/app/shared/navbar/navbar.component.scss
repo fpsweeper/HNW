@@ -1,0 +1,24 @@
+span, a {
+    font-family: 'Manrope';
+}
+
+.collapsedmenu {
+    background-color: black;
+}
+
+.hnwBtn {
+    background-color: transparent;
+    color: white;
+}
+.hnwBtn:hover {
+    border-radius: 2em;
+    border-color: rgb(232,71,45);
+    color: rgb(232,71,45);
+    font-weight: bold;
+    border-width: 2px;
+    box-shadow: rgba(232,71,45, 0.25) 0px 54px 55px,
+                rgba(232,71,45, 0.12) 0px -12px 30px, 
+                rgba(232,71,45, 0.12) 0px 4px 6px, 
+                rgba(232,71,45, 0.17) 0px 12px 13px, 
+                rgba(232,71,45, 0.09) 0px -3px 5px;
+}

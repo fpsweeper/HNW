@@ -1,0 +1,166 @@
+<main class="profile-page">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <section class="section-shaped my-0" style="height: 350px; background-size: cover; background-position: center center;">
+      <p style="color: rgb(232,71,45); position: relative; text-align: center; font-size: 25px; font-weight: bold; top: 100px;">NFTs Engine</p>
+      <div class="shape shape-style-1 shape-dark alpha-4">
+      </div>
+    </section>
+
+    <div class="position-relative">
+      <section class="section section-sm section-shaped pb-250">
+        <div class="shape shape-style-1 shape-dark">
+        </div>
+        <div class="container py-lg-md">
+          <div class="card card-profile shadow mt--300 card2">
+            <div class="col-lg-12 profile-label-2" style="min-height: 100px; justify-content: left; display:flex; margin-bottom: 50px; text-align: left; padding: 10px; background-color: rgba(232,71,45,0.4);">
+              <i class="fa fa-exclamation-circle fa-3x" style="color: rgb(232,71,45); display: inline-block; left: 10px; margin-right: 20px;"></i>
+              <p style="color: rgb(232,71,45); text-align: left; font-size: 20px; font-weight: bold;">The floor price and listing data may show wrong results because they use an alpha endpoint (NFT Active Listings).</p>
+            </div>
+
+            <div class="col-lg-12 profile-label-2" style="padding-bottom: 10px;">
+                <div class="form__group field" style="width: 100%;">
+                    <input type="input" class="form__field" placeholder="Mint address" required 
+                    (keyup.enter)="search()" [(ngModel)]="mintAddress" />
+                    <label for="name" class="form__label">Mint address</label>
+                </div>
+                <div *ngIf="loading" class="loader" style="right: 5px;">
+                    <div class="inner one"></div>
+                    <div class="inner two"></div>
+                    <div class="inner three"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-12" style="display: flex; justify-content: center;">
+              <a *ngIf="collectionName != null" class="col-lg-3 collection-label" style="min-height: 100px; justify-content: left; display:inline-block; margin-bottom: 50px; text-align: center; padding: 10px; 
+                margin-top: 20px;margin-right: 20px;" [routerLink]="['/collections', fvc]" target="_blank">
+                    <p style="color: white; text-align: left; font-size: 18px; top: 5px; left: 5px;">Collection</p>
+                    <p style="color: white; text-align: center; font-size: 24px; font-weight: bold;">{{collectionName}}</p>
+              </a>
+              <div *ngIf="fp != null" class="col-lg-3 fp-label" style="min-height: 100px; justify-content: left; display:inline-block; margin-bottom: 50px; text-align: center; padding: 10px; 
+                          margin-top: 20px;margin-right: 20px;">
+                  <p style="color: white; text-align: left; font-size: 18px; top: 5px; left: 5px;">Floor Price</p>
+                  <p style="color: white; text-align: center; font-size: 24px; font-weight: bold;">{{fp}} ◎</p>
+              </div>
+              <div *ngIf="listingCount != null" class="col-lg-3 ls-label" style="min-height: 100px; justify-content: left; display:inline-block; margin-bottom: 50px; text-align: center; padding: 10px; 
+                          margin-top: 20px;margin-right: 20px;">
+                  <p style="color: white; text-align: left; font-size: 18px; top: 5px; left: 5px;">Listing</p>
+                  <p style="color: white; text-align: center; font-size: 24px; font-weight: bold;">{{listingCount}}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="nft" class="card-body col-lg-12" style="display: flex;">
+            <div *ngIf="nft.offChainData" class="card-body col-lg-4" style="background-color: rgb(232,71,45); height: 350px; text-align:center; border-radius: 1em; padding: 0px; display: inline-block;">
+                <div style="margin: 0 auto; text-align:center;">
+                  <img *ngIf="nft.offChainData" src="{{nft.offChainData.image}}" style="width: 100%; border-radius: 1em 1em 0 0;">
+                </div>
+                <h6 *ngIf="nft.offChainData" class="text-uppercase" style="font-family: 'Secular One'; font-size: 15px; color: white;">{{nft.offChainData.name}}</h6>
+                <h6 *ngIf="listing.length != 0" class="text-uppercase listing-label ">Price: {{listing[0].amount}} ◎ ({{listing[0].marketplace}})</h6>
+                <h6 *ngIf="listing == 0" class="text-uppercase listing-label">Not listed</h6>
+            </div>
+            <div class="card-body col-lg-1" style="display: inline-block;"></div>
+            <div *ngIf="nft.offChainData" class="card-body col-lg-7 profile-label-2" style="height: 100%; display: inline-block; height: 100%; text-align: center;">
+                <h6 *ngIf="nft.offChainData.attributes" class="text-uppercase" style="font-family: 'Secular One'; font-size: 12px; color: rgb(232,71,45); position: absolute; right: 5px; top: 5px; padding: 0px; display: block;">{{nft.offChainData.attributes.length}} attributes</h6>
+                <div class="col-lg-12" style="text-align: left;">
+                    <a class="nav-link no-caret" style="display: block;" (click)="attClicked()">
+                        <i *ngIf="expandAtt" class="fa fa-caret-down" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                        <i *ngIf="!expandAtt" class="fa fa-caret-right" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                        <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 16px; color: rgb(232,71,45); position: relative; padding: 0px; display: inline-block;">Attributes</h6>
+                    </a>
+                </div>
+                <div *ngIf="expandAtt">
+                  <div class="col-lg-12" style="display: table;">
+                    <div *ngFor="let x of nft.offChainData.attributes" class="col-lg-3 profile-label-2" style="display: inline-table; margin-right: 5px; margin-bottom: 5px; height: 80px">
+                      <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 12px; color: rgb(232,71,45);; position: relative; padding: 0px;">{{x.traitType}}</h6>
+                      <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 15px; color: white; ">{{x.value}}</h6>
+                    </div>
+                  </div>   
+                </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="events" class="card-body col-lg-12 profile-label-2" style="height: 100%; display: inline-block; height: 100%; text-align: center;">
+            <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 12px; color: rgb(232,71,45); position: absolute; right: 5px; top: 5px; padding: 0px; display: block;">{{events.length}} tansactions</h6>
+            <div class="col-lg-12" style="text-align: left;">
+              <a class="nav-link no-caret" style="display: block;" (click)="evClicked()">
+                  <i *ngIf="expandEv" class="fa fa-caret-down" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                  <i *ngIf="!expandEv" class="fa fa-caret-right" style="color: white; display: inline-block; margin-right: 10px;"></i>
+                  <h6 class="text-uppercase" style="font-family: 'Secular One'; font-size: 16px; color: rgb(232,71,45); position: relative; padding: 0px; display: inline-block;">Events</h6> 
+              </a>
+            </div>
+
+            <div class="col-lg-12" *ngIf="expandEv" style="display: block; margin: 0 auto;
+            padding: 10px;">
+              <ng-select
+                [items]="sources"
+                bindLabel="name"
+                placeholder="Select Source(s)"
+                appendTo="body"
+                [multiple]="true"
+                [(ngModel)]="selectedSources"
+                (change)="onSourceChange($event)"
+                style="margin: 10px; display: inline-block;">
+              </ng-select>
+
+              <ng-select
+                [items]="types"
+                bindLabel="name"
+                placeholder="Select Type(s) "
+                appendTo="body"
+                [multiple]="true"
+                [(ngModel)]="selectedTypes"
+                style="margin: 10px; display: inline-block;">
+              </ng-select>
+
+              <div class="col-lg-12">
+                <button *ngIf="!searchLoading" class="btn hnwbtn" style="margin: 10px;" (click)="searchWithFilters()">Apply</button>
+                <div *ngIf="searchLoading" class="loader" style="margin-left: 50%; margin-right: 50%; width: 50px; margin-top: 10px;">
+                  <div class="inner one"></div>
+                  <div class="inner two"></div>
+                  <div class="inner three"></div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="expandEv">
+              
+            </div>
+
+            <div *ngIf="expandEv">
+              <div class="col-lg-12">
+                <table>
+                  <tr>
+                    <th>Signature</th>
+                    <th>Type</th>
+                    <th>Source</th>
+                    <th>Amount <img src="https://cdn-icons-png.flaticon.com/512/7016/7016539.png" style="height: 32px;"></th>
+                  </tr>
+                  <tr *ngFor="let x of events">
+                    <td><a href="https://solscan.io/tx/{{x.signature}}" target="_blank">{{x.signature}}</a> </td>
+                    <td>{{x.type}}</td>
+                    <td>{{x.source}}</td>
+                    <td>{{x.amount}} ◎ </td>
+                  </tr>
+                </table> 
+              </div>
+              
+            </div>
+
+            <div *ngIf="events && expandEv" class="col-lg-12" style="height: auto;
+            margin: 0 auto;
+            padding: 10px;">
+              <button *ngIf="!moreLoading" class="btn hnwbtn" (click)="moreClicked()">More</button>
+              <div *ngIf="moreLoading" class="loader" style="margin-left: 50%; margin-right: 50%; width: 50px; margin-top: 10px;">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+</main>
+  

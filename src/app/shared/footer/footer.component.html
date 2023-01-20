@@ -1,0 +1,39 @@
+<!--<footer class="footer" [ngClass]="{'has-cards': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login'}"> -->
+<footer class="footer" style="background: linear-gradient(87deg, #000000 0, #000000 100%)!important">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <div class="container">
+    <div class="row row-grid align-items-center" [ngClass]="{'my-md': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login', 'mb-5':getPath()==='/user-profile' || getPath()==='/register' || getPath()==='/login'}">
+      <div class="col-lg-6">
+        <h3 class="text-white font-weight-light mb-2" style="font-family: 'Manrope';">Thank you for supporting!</h3>
+        <h4 class="text-white mb-0 font-weight-light" style="font-family: 'Manrope';">Let's get in touch on any of these platforms.</h4>
+      </div>
+      <div class="col-lg-6 text-lg-center btn-wrapper">
+        <a target="_blank" href="https://twitter.com/FpSweeper" class="btn btn-neutral btn-icon-only btn-twitter btn-round btn-lg" ngbTooltip="Follow us">
+          <i class="fa fa-twitter"></i>
+        </a>
+
+        <a target="_blank" href="https://github.com/fpsweeper" class="btn btn-neutral btn-icon-only btn-github btn-round btn-lg" ngbTooltip="Follow us">
+          <i class="fa fa-github"></i>
+        </a>
+      </div>
+    </div>
+    <hr style="display: block; height: 1px;
+            border: 0; border-top: 1px solid rgb(232,71,45);
+            margin: 1em 0; padding: 0;
+            box-shadow: 0px 0px 40px 5px rgb(232,71,45);">
+    <div class="row align-items-center justify-content-md-between">
+      <div class="col-md-6">
+        <div class="copyright text-white" style="font-family: 'Manrope';">
+          <a href="#" target="_blank" style="font-family: 'Manrope';">HNW | FpSweeper</a>.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <ul class="nav nav-footer justify-content-end">
+          <!--<li class="nav-item">
+            <a href="#" class="nav-link" target="_blank" style="font-family: 'Manrope';">About Us</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

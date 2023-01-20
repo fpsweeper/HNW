@@ -1,0 +1,52 @@
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned" style="background-color: black;">
+  <div class="container">
+    <a [routerLink]="['/home']">
+      <img src="./assets/img/brand/logo.png" width="80px" height="50px">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar_global" [ngbCollapse]="isCollapsed" style="background-color: black;">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a [routerLink]="['/home']">
+              <img src="./assets/img/brand/logo.png" width="80px" height="50px">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+              <span style="background-color: white;"></span>
+              <span style="background-color: white;"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+        <a class="btn hnwBtn" [routerLink]="['/nfts']">
+          <span class="nav-link-inner--text">NFT Engine</span>
+        </a>
+        <a class="btn hnwBtn" [routerLink]="['/collections']">
+          <span class="nav-link-inner--text" >Collections Engine</span>
+        </a>
+      </ul>
+
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn hnwBtn" id="dropdownBasic1" ngbDropdownToggle>
+          <a class="nav-link-inner--text">Marketplaces Engine</a>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem [routerLink]="['/marketplaces/EXCHANGE_ART']"><img src="https://media.licdn.com/dms/image/C4E0BAQFY7Y2Oz2OR-A/company-logo_200_200/0/1655727004339?e=2147483647&v=beta&t=xALNR3i4EKHKuPkmvGWXCopv9vatkbe-IfY4eozqcI8" width="32px" height="32px" style="margin-right: 10px;">Exchange Art</button>
+          <button ngbDropdownItem [routerLink]="['/marketplaces/SOLANART']"><img src="https://solanart.io/solanart-logo-black.svg" width="32px" height="32px" style="margin-right: 10px;">Solanart</button>
+          <button ngbDropdownItem [routerLink]="['/marketplaces/MAGIC_EDEN']"><img src="https://www.freelogovectors.net/svg12/magic-eden-logo-freelogovectors.net.svg" width="32px" height="32px" style="margin-right: 10px;">Magic Eden</button>
+          <button ngbDropdownItem [routerLink]="['/marketplaces/SOLSEA']"><img src="https://assets-global.website-files.com/6364e65656ab107e465325d2/637adde6b1ddf484a83628f6_LQYNBHF3vgjGPkdArEWOw7is0JNYkJhnUF4KEJNIv10.svg" width="32px" height="32px" style="margin-right: 10px;">Solsea</button>
+          <button ngbDropdownItem [routerLink]="['/marketplaces/YAWWW']"><img src="https://d1fdloi71mui9q.cloudfront.net/YaPRM1YTliyfUSb64cXE_Or3p1vTGQTVPnFrd" width="32px" height="32px" style="margin-right: 10px;">Yawww</button>
+          <button ngbDropdownItem [routerLink]="['/marketplaces/HYPERSPACE']"><img src="https://cdn.theorg.com/a5961085-a118-472f-bd1c-9c9b7c22a699_thumb.jpg" width="32px" height="32px" style="margin-right: 10px;">Hyperspace</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
