@@ -10,7 +10,7 @@ HNW is a Solana web3 platform developped in the Sandstorm Hackathon in January 2
 
 **NFT Engine**
 
-[<img src="https://github.com/fpsweeper/HNW/blob/main/src/assets/docs/colls.png?raw=true"/>]
+<img src="https://github.com/fpsweeper/HNW/blob/main/src/assets/docs/colls.png?raw=true"/>
 It is a module where you can get any data related to any solana NFT by its mint address. Using this module you can get the bellow informations:
 * Collection
 * Floor-price (this info use an alpha endpoint, so it can show wrong data)
