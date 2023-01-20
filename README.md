@@ -22,6 +22,7 @@ It is a module where you can get any data related to any solana NFT by its mint 
 
 **Collections Engine**
 
+<img src="https://github.com/fpsweeper/HNW/blob/main/src/assets/docs/colls.png?raw=true"/>
 Using this module you can get the bellow infos about any collection in solana:
 * Floor-price (this info use an alpha endpoint, so it can show wrong data)
 * Listing (this info use an alpha endpoint, so it can show wrong data)
@@ -32,6 +33,7 @@ Using this module you can get the bellow infos about any collection in solana:
 
 **Marketplaces Engine**
 
+<img src="https://github.com/fpsweeper/HNW/blob/main/src/assets/docs/marketplaces.png?raw=true"/>
 The marketplace engine show realtime sales and listing in the biggest solana marketplaces, using this module you can benefit from the following:
 * Get latest sales/listing in the biggest marketplaces
 * Get top 10 collections in listing/sales
