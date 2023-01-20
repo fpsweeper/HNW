@@ -20,6 +20,7 @@ It is a module where you can get any data related to any solana NFT by its mint 
 * NFT events
 * Filter events by sources and types.
 
+
 **Collections Engine**
 
 <img src="https://github.com/fpsweeper/HNW/blob/main/src/assets/docs/colls.png?raw=true"/>
@@ -30,6 +31,7 @@ Using this module you can get the bellow infos about any collection in solana:
 * Download mint list (JSON file)
 * Latest sales
 * Active listing
+
 
 **Marketplaces Engine**
 
